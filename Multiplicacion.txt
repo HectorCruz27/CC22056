@@ -1,0 +1,40 @@
+section .data
+    n1 db '2'
+    n2 db '2'
+    texto db  "La multiplicacion de ambos numeros es "
+    len equ $ - texto
+
+segment .bss
+
+    resultado resb 1
+
+section .text
+
+global _start
+
+_start: 
+
+    mov     al,  [n1]
+    sub     al,  '0'
+    mov     bl,  [n2]
+    sub     bl,  '0'
+    imul    bl
+    add     al,  '0'
+
+    mov     [resultado],  al
+
+    mov     ecx,  texto
+    mov     edx,  len
+    mov     ebx,  1
+    mov     eax,  4
+    int     0x80
+
+    mov     ecx,  resultado
+    mov     edx,  1
+    mov     ebx,  1
+    mov     eax,  4
+    int     0x80
+
+    mov     eax,  1
+    int     0x80
+

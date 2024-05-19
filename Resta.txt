@@ -1,0 +1,41 @@
+section .data
+    n1 db '5'
+    n2 db '2'
+    n3 db '1'
+    texto db "La resta de los tres numeros es "
+    len equ $ - texto
+    
+section .bss
+    resultado resb 1
+    
+section .text
+    global _start
+    
+_start:
+
+    mov ax, [n1]
+    sub ax, '0'
+    mov bx, [n2]
+    sub bx, '0'
+    mov cx, [n3]
+    sub cx, '0'
+    sub ax, bx
+    sub ax, cx
+    add ax, '0'
+    
+    mov [resultado], ax
+    
+    mov ecx, texto
+    mov edx, len
+    mov ebx, 1
+    mov eax, 4
+    int 0x80
+    
+    mov ecx, resultado
+    mov edx, 1
+    mov ebx, 1
+    mov eax, 4
+    int 0x80
+    
+    mov eax, 1
+    int 0x80
